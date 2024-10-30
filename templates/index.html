@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIANA AI System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            min-height: 100vh;
+            background-color: #0a0010;
+            color: #ff1493;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        .visualizer-container {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            margin: 40px auto;
+            perspective: 1000px;
+        }
+
+        canvas {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .hologram-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255,20,147,0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .scan-line {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom,
+                transparent 0%,
+                rgba(255,20,147,0.1) 50%,
+                transparent 100%);
+            animation: scan 3s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes scan {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+
+        .container {
+            background: rgba(20, 0, 20, 0.8);
+            border: 1px solid rgba(255, 20, 147, 0.2);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(255, 20, 147, 0.1);
+            width: 100%;
+            max-width: 800px;
+            backdrop-filter: blur(10px);
+            margin-top: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #ff1493;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+        }
+
+        #log {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 20, 147, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            height: auto;
+            max-height: 300px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #ff1493;
+            margin-top: 20px;
+            white-space: pre-wrap;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin-top: 20px;
+            font-size: 1.1em;
+            color: #ff1493;
+            background-color: rgba(255, 20, 147, 0.1);
+            border: 1px solid rgba(255, 20, 147, 0.3);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        button:hover {
+            background-color: rgba(255, 20, 147, 0.2);
+            box-shadow: 0 0 20px rgba(255, 20, 147, 0.2);
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="visualizer-container">
+        <canvas id="visualizer"></canvas>
+        <div class="hologram-glow"></div>
+        <div class="scan-line"></div>
+    </div>
+    <div class="container">
+        <h1>DIANA</h1>
+        <pre id="log">Initializing DIANA AI systems...
+Awaiting voice input. Click "Activate" to begin.</pre>
+        <button onclick="startScript()">Activate System</button>
+    </div>
+    
+
+    <script>
+        let audioContext;
+        let analyser;
+        let microphone;
+        let canvas;
+        let ctx;
+        let particles = [];
+        let audioData;
+        let isActive = false;
+        let animationId;
+
+        class Particle {
+            constructor(x, y, z) {
+                this.x = x;
+                this.y = y;
+                this.z = z;
+                this.baseX = x;
+                this.baseY = y;
+                this.baseZ = z;
+                this.size = Math.random() * 2 + 1;
+                this.angle = Math.random() * Math.PI * 2;
+                this.speed = Math.random() * 0.02 + 0.02;
+                this.oscillationRadius = Math.random() * 50 + 50;
+                this.oscillationSpeed = Math.random() * 0.02 + 0.02;
+                this.maxForce = Math.random() * 20 + 10;
+                this.currentSize = this.size;
+            }
+
+            update(audioLevel) {
+                this.angle += this.speed;
+                const force = Math.min(audioLevel / 255 * this.maxForce, this.maxForce);
+                
+                this.x = this.baseX + Math.cos(this.angle) * (this.oscillationRadius + force);
+                this.y = this.baseY + Math.sin(this.angle) * (this.oscillationRadius + force);
+                this.z = this.baseZ + Math.sin(this.angle * 2) * (force * 2);
+                
+                this.currentSize = this.size * (1 + audioLevel / 255);
+            }
+
+            draw(ctx, width, height) {
+                const perspective = 300;
+                const scale = perspective / (perspective + this.z);
+                const x = width/2 + this.x * scale;
+                const y = height/2 + this.y * scale;
+                
+                ctx.beginPath();
+                ctx.arc(x, y, this.currentSize * scale, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 20, 147, ${scale * 0.5})`;
+                ctx.fill();
+                
+                if (scale > 0.5) {
+                    particles.forEach(p => {
+                        const dx = x - (width/2 + p.x * perspective / (perspective + p.z));
+                        const dy = y - (height/2 + p.y * perspective / (perspective + p.z));
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        if (distance < 50) {
+                            ctx.beginPath();
+                            ctx.moveTo(x, y);
+                            ctx.lineTo(
+                                width/2 + p.x * perspective / (perspective + p.z),
+                                height/2 + p.y * perspective / (perspective + p.z)
+                            );
+                            ctx.strokeStyle = `rgba(255, 20, 147, ${(1 - distance/50) * 0.2 * scale})`;
+                            ctx.stroke();
+                        }
+                    });
+                }
+            }
+        }
+
+        function initVisualizer() {
+            canvas = document.getElementById('visualizer');
+            ctx = canvas.getContext('2d');
+            
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = 500;
+            }
+            
+            window.addEventListener('resize', resize);
+            resize();
+
+            // Clear existing particles
+            particles = [];
+            
+            // Create new particles in a sphere formation
+            for (let i = 0; i < 100; i++) {
+                const radius = Math.random() * 100 + 50;
+                const theta = Math.random() * Math.PI * 2;
+                const phi = Math.random() * Math.PI * 2;
+                
+                const x = radius * Math.sin(theta) * Math.cos(phi);
+                const y = radius * Math.sin(theta) * Math.sin(phi);
+                const z = radius * Math.cos(theta);
+                
+                particles.push(new Particle(x, y, z));
+            }
+
+            // Start basic animation if not already running
+            if (!isActive) {
+                animate(new Uint8Array(32).fill(0)); // Animate with zero audio levels
+            }
+        }
+
+        async function initAudio() {
+            if (audioContext) {
+                await audioContext.close();
+            }
+            
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            analyser = audioContext.createAnalyser();
+            analyser.fftSize = 64;
+            audioData = new Uint8Array(analyser.frequencyBinCount);
+            
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                microphone = audioContext.createMediaStreamSource(stream);
+                microphone.connect(analyser);
+                isActive = true;
+                
+                // Cancel any existing animation
+                if (animationId) {
+                    cancelAnimationFrame(animationId);
+                }
+                
+                animate();
+                
+                document.getElementById('log').innerText += 'Audio system initialized successfully.\n';
+            } catch (err) {
+                console.error('Error accessing microphone: ', err);
+                document.getElementById('log').innerText += '\nError: Microphone access denied.\n';
+                // Continue with zero audio levels
+                animate(new Uint8Array(32).fill(0));
+            }
+        }
+
+        function animate(forcedAudioData) {
+            if (!canvas || !ctx) return;
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            let audioLevel;
+            if (isActive && analyser) {
+                analyser.getByteFrequencyData(audioData);
+                audioLevel = audioData.reduce((a, b) => a + b) / audioData.length;
+            } else {
+                audioLevel = 0;
+            }
+            
+            particles.forEach(particle => {
+                particle.update(audioLevel);
+                particle.draw(ctx, canvas.width, canvas.height);
+            });
+            
+            animationId = requestAnimationFrame(() => animate(forcedAudioData));
+        }
+
+        function startScript() {
+            const log = document.getElementById("log");
+            log.innerText = "DIANA AI System activated.\nInitializing neural core...\n";
+            
+            // Add EventSource connection to server
+            const eventSource = new EventSource("/run_script");
+            eventSource.onmessage = function(event) {
+                log.innerText += event.data + "\n";
+                log.scrollTop = log.scrollHeight;
+            };
+            
+            eventSource.onerror = function() {
+                eventSource.close();
+                log.innerText += "\nError: Connection to neural core lost.\n";
+            };
+            
+            initAudio();
+        }
+        // Initialize visualization on load
+        document.addEventListener('DOMContentLoaded', () => {
+            initVisualizer();
+        });
+    </script>
+</body>
+</html>
