@@ -1,4 +1,4 @@
-# Diana - Your Personal AI Assistant
+# Diana - Your Personal Desktop Assistant
 
 Diana is a versatile AI assistant that can help you with a variety of tasks, from managing your schedule and tasks to providing information, analyzing data, and more. This README file covers the key features and capabilities of the Diana assistant.
 
