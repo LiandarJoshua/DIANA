@@ -61,5 +61,6 @@ While Diana is a capable assistant, there are always opportunities for improveme
 - Enhancing the user interface and voice interaction experience.
 - Adding support for more languages and locales.
 - Improving the overall stability and robustness of the assistant.
+- Deployment in a scalable cloud service, like GCP or AWS
 
 We welcome feedback and contributions from the community to help make Diana an even more useful and reliable AI assistant.
