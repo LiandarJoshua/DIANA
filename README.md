@@ -26,6 +26,12 @@ FrontEnd: https://diana-your-virtual-voice-assistant.onrender.com/
 
 10. **General Information and Conversation**: Diana can engage in general conversation, answer questions, and provide information on a wide range of topics using a Groq-based language model.
 
+11. **Setting Alarms**
+
+12. **Maintaining Context Window**: Diana maintains context during conversations
+
+
+
 ## Usage
 On clicking the activate button, once Diana starts listening use the wake phrases "wake up" or "Hey Diana" to start talking.
 To use Diana, simply start the program and begin interacting with her using voice commands or text input. Some example commands include:
