@@ -5,7 +5,7 @@ Diana is a versatile AI assistant that can help you with a variety of tasks, fro
 FrontEnd: https://diana-your-virtual-voice-assistant.onrender.com/
 
 # Demo 
-In this Demo, I test some of the commands and try maintain a conversation with DIANA to check whether she maintains context. Note to make DIANA stop speaking and begin listening again mid conversation, you can press **spacebar**, and to close the camera you can press 1.
+In this Demo, I test some of the commands and try maintain a conversation with DIANA to check whether she maintains context. Note to make DIANA stop speaking and begin listening again mid conversation, you can press **spacebar**, and to close the camera you can press 1.**Click on the image below to redirect to the video.**
 
 [![Watch the video](https://img.youtube.com/vi/qS0f7gFTzlk/maxresdefault.jpg)](https://www.youtube.com/watch?v=qS0f7gFTzlk)
 
