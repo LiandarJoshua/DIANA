@@ -4,7 +4,7 @@ Diana is a versatile AI assistant that can help you with a variety of tasks, fro
 
 FrontEnd: https://diana-your-virtual-voice-assistant.onrender.com/
 
-## Key Features
+## Some Key Features
 
 1. **Schedule Management**: Diana can help you create, manage, and keep track of your events and appointments. You can add new events, view upcoming events, and even remove events as needed.Data Stored in SQLite Database.
 
