@@ -47,9 +47,10 @@ Diana will respond accordingly and provide the requested information or perform 
 Diana relies on several Python libraries and external services to function. The main dependencies are:
 
 To install:
-Run 'pip install -r requirements.txt'
+Run 
+pip install -r requirements.txt
 
-Make sure you have all the required libraries installed before running the Diana assistant.
+Make sure you have all the required libraries installed before running the app.py file
 
 ## Future Improvements
 
