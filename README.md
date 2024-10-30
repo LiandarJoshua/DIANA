@@ -6,7 +6,7 @@ FrontEnd: https://diana-your-virtual-voice-assistant.onrender.com/
 
 # Demo 
 In this Demo, I test some of the commands and try maintain a conversation with DIANA to check whether she maintains context. Note to make DIANA stop speaking and begin listening again mid conversation, you can press **spacebar**, and to close the camera you can press 1.
-Video link:
+
 https://www.youtube.com/watch?v=qS0f7gFTzlk
 
 ## Some Key Features
