@@ -46,33 +46,8 @@ Diana will respond accordingly and provide the requested information or perform 
 
 Diana relies on several Python libraries and external services to function. The main dependencies are:
 
-- `configparser`
-- `os`
-- `datetime`
-- `sys`
-- `time`
-- `cv2`
-- `random`
-- `speech_recognition`
-- `requests`
-- `wikipedia`
-- `webbrowser`
-- `pyttsx3`
-- `pyjokes`
-- `psutil`
-- `pyautogui`
-- `BeautifulSoup`
-- `email`
-- `transformers`
-- `groq`
-- `smtplib`
-- `edge_tts`
-- `pygame`
-- `pynput`
-- `sqlite3`
-- `pytube`
-- `youtube_search`
-- `speedtest-cli`
+To install:
+Run 'pip install -r requirements.txt'
 
 Make sure you have all the required libraries installed before running the Diana assistant.
 
