@@ -4,7 +4,7 @@ import time
 import os
 
 app = Flask(__name__)
-PORT = int(os.getenv("PORT", 5000))
+
 # Route to render the main page
 @app.route("/")
 def index():
@@ -38,5 +38,5 @@ def run_script():
     return Response(generate(), mimetype="text/event-stream")
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=PORT)
+    app.run(debug=True)
 
