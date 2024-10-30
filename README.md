@@ -30,6 +30,8 @@ FrontEnd: https://diana-your-virtual-voice-assistant.onrender.com/
 
 12. **Maintaining Context Window**: Diana maintains context during conversations
 
+13. **Utilizing GROQ for LLama 3**
+
 
 
 ## Usage
