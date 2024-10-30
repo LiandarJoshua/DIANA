@@ -6,9 +6,9 @@ FrontEnd: https://diana-your-virtual-voice-assistant.onrender.com/
 
 ## Key Features
 
-1. **Schedule Management**: Diana can help you create, manage, and keep track of your events and appointments. You can add new events, view upcoming events, and even remove events as needed.
+1. **Schedule Management**: Diana can help you create, manage, and keep track of your events and appointments. You can add new events, view upcoming events, and even remove events as needed.Data Stored in SQLite Database.
 
-2. **Task Management**: Diana allows you to add, view, and remove tasks to help you stay organized and on top of your to-do list.
+2. **Task Management**: Diana allows you to add, view, and remove tasks to help you stay organized and on top of your to-do list.Data Stored in SQLite Database.
 
 3. **Weather Information**: Diana can provide you with the latest weather information, including temperature, humidity, and weather conditions for a specified location.
 
