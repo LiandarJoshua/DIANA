@@ -38,6 +38,8 @@ In this Demo, I test some of the commands and try maintain a conversation with D
 
 13. **Utilizing GROQ for LLama 3**
 
+14. **Database Management utilizing SQLite**
+
 
 
 ## Usage
