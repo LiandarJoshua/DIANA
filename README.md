@@ -2,7 +2,7 @@
 
 Diana is a versatile AI assistant that can help you with a variety of tasks, from managing your schedule and tasks to providing information, analyzing data, and more. This README file covers the key features and capabilities of the Diana assistant.
 
-FrontEnd: https://diana-your-virtual-voice-assistant.onrender.com/
+FrontEnd: https://diana-beta.vercel.app/
 
 # Demo 
 In this Demo, I test some of the commands and try maintain a conversation with DIANA to check whether she maintains context. Note to make DIANA stop speaking and begin listening again mid conversation, you can press **spacebar**, and to close the camera you can press 1.**Click on the image below to redirect to the video.**
