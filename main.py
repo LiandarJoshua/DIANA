@@ -183,7 +183,7 @@ def remove_task(task):
         
 def send_email(to_email, subject, message, file_location=None):
     email = 'joshuxvro@gmail.com'  # Your email
-    password = 'msdhoni123'     # Your email account password
+    password = ''     # Your email account password
 
     msg = MIMEMultipart()
     msg['From'] = email
