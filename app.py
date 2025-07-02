@@ -20,7 +20,7 @@ def run_script():
 
         # Run main1.py as a subprocess using the full Python path
         process = subprocess.Popen(
-            ["C:/Users/joshu/anaconda3/python.exe", "main1.py"],
+            ["python", "main1.py"],
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
             text=True,
