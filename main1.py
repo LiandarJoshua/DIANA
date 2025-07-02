@@ -74,7 +74,7 @@ def initialize_database():
 initialize_database()
 
 # Set up API keys
-os.environ["GROQ_API_KEY"] = "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"
+
 api_key = os.getenv("GROQ_API_KEY")
 if not api_key:
     raise EnvironmentError("GROQ_API_KEY environment variable is not set.")
