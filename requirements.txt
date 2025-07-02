@@ -19,3 +19,6 @@ pytube
 youtube-search-python
 speedtest-cli
 flask
+gunicorn
+requests
+Flask

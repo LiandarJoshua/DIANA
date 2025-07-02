@@ -37,6 +37,5 @@ def run_script():
 
     return Response(generate(), mimetype="text/event-stream")
 
-if __name__ == "__main__":
-    app.run(debug=True)
+
 
